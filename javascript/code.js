@@ -5,12 +5,16 @@ class Joke {
 window.onload = function () {
     let getRandJokeBtn = document.querySelector("main > button");
     getRandJokeBtn.onclick = getRandomJoke;
-    getRandomJoke();
-    let getDate = new Date().getFullYear();
-    let copywrite = document.getElementById("date");
-    copywrite.innerText = getDate.toString();
+    getRandJokeBtn.click();
 };
+function AlterButtonEnabledState(isDiabled, button) {
+    let getJokeBtn = button;
+    getJokeBtn.disabled = isDiabled;
+    let loadingDiv = document.querySelector("#loaded");
+    loadingDiv.classList.toggle("loading");
+}
 function getRandomJoke() {
+    AlterButtonEnabledState(true, this);
     let request = new XMLHttpRequest();
     request.onreadystatechange = handleRequestChange;
     let url = "https://api.icndb.com/jokes/random";
@@ -22,7 +26,9 @@ function handleRequestChange() {
     if (currRequest.readyState == 4 && currRequest.status == 200) {
         let response = JSON.parse(currRequest.responseText);
         let newJoke = response.value;
+        let getRandJokeBtn = document.querySelector("main > button");
         displayJoke(newJoke);
+        AlterButtonEnabledState(false, getRandJokeBtn);
     }
 }
 function displayJoke(currJoke) {

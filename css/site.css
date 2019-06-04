@@ -8,6 +8,10 @@ main {
     font-family: "Roboto Mono", monospace;
 }
 
+header, footer {
+    font-size: 1em;
+    font-family: "Roboto Mono", monospace;
+}
 header {
     text-align: center;
     border: 0.5em dashed white;
@@ -39,4 +43,13 @@ span[id="joke-id"] {
 button {
     padding: 1em;
     background-color: salmon;
+}
+
+div#loaded {
+    margin-top: 0.5em;
+    display: none;
+}
+
+div#loaded.loading {
+    display: block !important;
 }

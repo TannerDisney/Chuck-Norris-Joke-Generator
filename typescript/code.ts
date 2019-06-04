@@ -21,14 +21,25 @@ class Joke
 
 window.onload = function()
 {
-    let getRandJokeBtn = (<HTMLElement>document.querySelector("main > button"));
+    let getRandJokeBtn = (<HTMLButtonElement>document.querySelector("main > button"));
     getRandJokeBtn.onclick = getRandomJoke;
-    getRandomJoke();
+    // Simulates Button Click Programmtically
+    getRandJokeBtn.click();
+    //getRandomJoke();
+}
+/**
+ * Changes the disabled property of a specific Button.
+ * @param isDiabled True to disable button / False to enable button
+ * @param button Button Element to enable/disable
+ */
+function AlterButtonEnabledState(isDiabled:boolean, button:HTMLButtonElement)
+{
+    // Disable Button.
+    let getJokeBtn = button;
+    getJokeBtn.disabled = isDiabled;
 
-
-    let getDate = new Date().getFullYear();
-    let copywrite = document.getElementById("date");
-    copywrite.innerText = getDate.toString();
+    let loadingDiv = <HTMLElement>document.querySelector("#loaded");
+    loadingDiv.classList.toggle("loading");
 }
 
 /**
@@ -37,6 +48,7 @@ window.onload = function()
 function getRandomJoke()
 {
     // Create request object
+    AlterButtonEnabledState(true, this);
     let request = new XMLHttpRequest();
 
     // Everytime readyState is changed, this function is called.
@@ -48,7 +60,6 @@ function getRandomJoke()
 
     // Send request object
     request.send();
-    
 }
 /**
  * Fires everytime the readyState property is changed.
@@ -73,13 +84,16 @@ function handleRequestChange()
     {
         let response = <Result>JSON.parse(currRequest.responseText);
         let newJoke = response.value;
+        let getRandJokeBtn = (<HTMLButtonElement>document.querySelector("main > button"));
         displayJoke(newJoke);
+        AlterButtonEnabledState(false, getRandJokeBtn);
         
         /*
             alert(response.value.joke);
             console.log(response.value.joke);
             console.log(response.value.text);
         */
+       // Re-enable Button and Hide Loading Image.
     }
 }
 /**
