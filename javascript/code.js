@@ -1,6 +1,11 @@
+class Result {
+}
+class Joke {
+}
 window.onload = function () {
     let getRandJokeBtn = document.querySelector("main > button");
     getRandJokeBtn.onclick = getRandomJoke;
+    getRandomJoke();
     let getDate = new Date().getFullYear();
     let copywrite = document.getElementById("date");
     copywrite.innerText = getDate.toString();
@@ -16,7 +21,15 @@ function handleRequestChange() {
     let currRequest = this;
     if (currRequest.readyState == 4 && currRequest.status == 200) {
         let response = JSON.parse(currRequest.responseText);
-        let sendPara = document.getElementById("joke-output");
-        sendPara.innerText = response.value.joke;
+        let newJoke = response.value;
+        displayJoke(newJoke);
     }
+}
+function displayJoke(currJoke) {
+    let idElem = document.getElementById("joke-id");
+    let jokeTextElem = document.querySelector("main > p:nth-of-type(1)");
+    let categoriesElem = document.querySelector("main > p:nth-of-type(2)");
+    idElem.innerText = "Id: " + currJoke.id.toString();
+    jokeTextElem.innerHTML = currJoke.joke;
+    categoriesElem.innerText = "Categories: " + currJoke.categories.toString();
 }

@@ -4,6 +4,8 @@ main {
     border-radius: 1em;
     padding: 2em;
     background-color: cyan;
+    font-size: 1.2em;
+    font-family: "Roboto Mono", monospace;
 }
 
 header {
@@ -25,4 +27,16 @@ footer {
 
 body {
     background-color: gray;
+}
+
+span[id="joke-id"] {
+    text-align: center;
+    display: block;
+    padding-bottom: 1em;
+    opacity: 0.5;
+}
+
+button {
+    padding: 1em;
+    background-color: salmon;
 }
